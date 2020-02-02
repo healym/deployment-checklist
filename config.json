@@ -1,0 +1,12 @@
+{
+    "name": "Example Checklist",
+    "list_items": [
+        {
+            "prompt": "Item one",
+            "choices": {
+                "Y": "DONE",
+                "N": "COMMENT"
+            }
+        }
+    ]
+}
