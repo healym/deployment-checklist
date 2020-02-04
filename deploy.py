@@ -13,9 +13,9 @@ def main(config_file, progress_file):
         checklist = json.load(f)
     print(checklist['name'])
     for item_num, list_item in enumerate(checklist['list_items']):
-        file_comment = prompt_user_action(item_num+1, list_item)  # 1-index for output
-    with open(progress_file, 'a') as f:
-        f.write(file_comment)
+        file_comment = prompt_user_action(item_num + 1, list_item)  # 1-index for output
+        with open(progress_file, 'a') as f:
+            f.write(file_comment)
 
 
 def prompt_user_action(item_num, list_item):
