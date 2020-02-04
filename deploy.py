@@ -25,12 +25,12 @@ def prompt_user_action(item_num, list_item):
     choice_made = input(make_choices(list_item['choices'])).upper().strip()
     resp = ACTIONS[list_item['choices'][choice_made]]()
     resp_template = dedent('''
-                           {num}. {prompt}
+                           {num}) {prompt}
                            {div}
                            {resp}
                            ''')
 
-    return resp_template.format(num=item_num, prompt=raw_prompt, div='-'*div_length, resp=resp)
+    return resp_template.format(num=item_num, prompt=raw_prompt, div='-' * div_length, resp=resp)
 
 
 def make_prompt(raw_prompt):
