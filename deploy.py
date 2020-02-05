@@ -51,7 +51,7 @@ def prompt_user_action(item_num, list_item):
         choice_made = input(make_choices(list_item['choices_prompts'])).upper().strip()
 
     resp = ACTIONS[list_item['choices'][choice_made]]()
-    div_length = len(raw_prompt) + 2 + len(str(item_num) + 4 + len(choice_made))
+    div_length = len(raw_prompt) + 2 + len(str(item_num)) + 4 + len(choice_made)
     resp_template = dedent('''
                            {num}) {prompt}....{choice_made}
                            {div}
