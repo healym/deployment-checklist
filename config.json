@@ -3,10 +3,10 @@
     "list_items": [
         {
             "prompt": "Item one",
-	    "choices_prompts": ["Yes", "No"],
+	    "choices_prompts": ["Yes", "Comment"],
             "choices": {
                 "Y": "DONE",
-                "N": "COMMENT"
+                "C": "COMMENT"
             }
         },
         {
