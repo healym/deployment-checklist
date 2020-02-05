@@ -4,6 +4,7 @@ import argparse
 import json
 import sys
 from textwrap import dedent
+from datetime import datetime
 
 from actions import ACTIONS
 
@@ -11,7 +12,14 @@ from actions import ACTIONS
 def main(config_file, progress_file):
     with open(config_file) as f:
         checklist = json.load(f)
-    print(checklist['name'])
+    name = checklist['name']
+    print(name)
+    f.write(dedent('''
+                   {name} [{date}]
+                   {div}
+                   ''').format(name=name,
+                               date=datetime.now().strfttime('%Y-%m-%d'),
+                               div='=' * (len(name) + 11)))
     for item_num, list_item in enumerate(checklist['list_items']):
         file_comment = prompt_user_action(item_num + 1, list_item)  # 1-index for output
         with open(progress_file, 'a') as f:
@@ -22,7 +30,11 @@ def prompt_user_action(item_num, list_item):
     raw_prompt = list_item['prompt']
     div_length = len(raw_prompt) + 2 + len(str(item_num))
     sys.stdout.write(make_prompt(raw_prompt))
-    choice_made = input(make_choices(list_item['choices'])).upper().strip()
+    choices = list_item['choices']
+    choice_made = None
+    while choice_made not in choices:
+        choice_made = input(make_choices(list_item['choices_prompts'])).upper().strip()
+
     resp = ACTIONS[list_item['choices'][choice_made]]()
     resp_template = dedent('''
                            {num}) {prompt}

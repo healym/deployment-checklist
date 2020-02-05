@@ -7,11 +7,12 @@ def done():
 
 
 def make_comment():
-    print('Reason:')
+    print('Comment:')
     return sys.stdin.read()
 
 
 ACTIONS = {
     'DONE': done,
-    'COMMENT': make_comment
+    'COMMENT': make_comment,
+    'REVIEWER': lambda: input('Reviewer: ')
 }
