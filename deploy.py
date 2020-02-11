@@ -1,4 +1,7 @@
-#! /usr/bin/python3
+#! /usr/bin/python
+
+from __future__ import absolute_import, division, print_function
+from __py2to3__.builtins_overrides import *
 
 import argparse
 import json
@@ -46,9 +49,8 @@ def prompt_user_action(item_num, list_item):
     raw_prompt = list_item['prompt']
     sys.stdout.write(make_prompt(raw_prompt))
     choices = list_item['choices']
-    choice_made = None
-    while choice_made not in choices:
-        choice_made = input(make_choices(list_item['choices_prompts'])).upper().strip()
+    default_choice = list_item['default_choice']
+    choice_made = get_selection(choices, default_choice)
 
     resp = ACTIONS[list_item['choices'][choice_made]]()
     div_length = len(raw_prompt) + 2 + len(str(item_num)) + 4 + len(choice_made)
@@ -65,12 +67,21 @@ def prompt_user_action(item_num, list_item):
                                 choice_made=choice_made)
 
 
+def get_selection(choices, default):
+    choice = None
+    while choice not in choices:
+        choice = input(make_choices_prompt(choices,)).upper().strip()
+        if choice == '':  # no input given
+            return default
+    return choice
+
+
 def make_prompt(raw_prompt):
     return raw_prompt + ' '
 
 
-def make_choices(choices):
-    return '/'.join(choices) + ': '
+def make_choices_prompt(choices, default_choice):
+    return '/'.join(['[{}]'.format(c) if c == default_choice else c for c in choices]) + ': '
 
 
 if __name__ == '__main__':

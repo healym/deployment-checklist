@@ -3,18 +3,18 @@
     "list_items": [
         {
             "prompt": "Item one",
-	    "choices_prompts": ["Yes", "Comment"],
+            "default_choice": "Y",
             "choices": {
                 "Y": "DONE",
-                "C": "COMMENT"
+                "N": "COMMENT"
             }
         },
         {
             "prompt": "Item two",
-	    "choices_prompts": ["Yes", "Comment"],
+            "default_choice": "Y",
             "choices": {
                 "Y": "DONE",
-                "C": "COMMENT"
+                "N": "COMMENT"
             }
         }
     ]
