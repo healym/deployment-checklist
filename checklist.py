@@ -1,4 +1,5 @@
 from textwrap import dedent
+import datetime
 
 class ChecklistLog:
     def __init__(self, filename, num):
@@ -42,8 +43,7 @@ class ChecklistItem:
         raise Exception('prompt_user_action *must* be overloaded, it\'s the core functionality of a checklist item!')
 
     def log_to_file(self, out_file):
-        with open(out_file, 'a') as f:
-            f.write(f'{num}) {self.prompt}...ok')  # default acknowledgement
+        out_file.write('Completed at {ts}'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%s')))
 
     def run(self, out_file, num):
         self.run_initial_actions()
