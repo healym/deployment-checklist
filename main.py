@@ -48,13 +48,9 @@ class ChecklistDriver:
         pass  # TODO
 
     def run(self):
-        with open(self.checklist_output, 'a' if self.args.resume else 'w'):
-            for list_item in self.checklist_items:
-                list_item.run_initial_actions()
-                list_item.prompt_user_action()
-                list_item.run_mid_actions()
-                list_item.log_to_file(checklist_file)
-                list_item.run_post_actions()
+        with open(self.checklist_output, 'a' if self.args.resume else 'w') as out:
+            for num, list_item in enumerate(self.checklist_items, start=1):
+                list_item.run(out, num)
 
 if __name__ == '__main__':
     checklist = ChecklistDriver()
